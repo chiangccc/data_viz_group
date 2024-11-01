@@ -61,8 +61,8 @@ Promise.all([
     .filter((year) => year >= 2014 && year <= 2024);
 
   createLegend();
-
-  playTimeLapse();
+  updateMap(2014);
+  d3.select("#year").text("2014");
 });
 
 function updateMap(year) {
@@ -210,6 +210,11 @@ function createLegend() {
     .style("font-weight", "bold")
     .text("Number of Refugees");
 }
+
+const year_btn = d3.select("#timelapse");
+year_btn.on("click", function () {
+  playTimeLapse();
+});
 
 function playTimeLapse() {
   let currentIndex = 0;
