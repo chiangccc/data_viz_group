@@ -6,10 +6,12 @@ a:visited {
 .btn_container {
   margin-bottom: 15px;
 }
+#timelapse {
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #8664a4;
+}
 #year {
-  /* display: flex;
-  justify-content: center; */
-  margin-left: 100px;
   font-size: 24px;
   font-weight: bold;
 }
@@ -21,7 +23,18 @@ button {
   color: #000;
   background-color: #fff;
   border: 2px solid #676767;
-  border-radius: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#menu {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #676767;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
