@@ -17,13 +17,13 @@
     <div class="container">
         <div class="btn_container">
             <button>
+                <a href="./map.html">Cloropleth Map</a>
+            </button>
+            <button>
                 <a href="">Chart</a>
             </button>
             <button>
-                <a href="./map.html">Map</a>
-            </button>
-            <button>
-                <a href="">Sankey Plot</a>
+                <a href="">Sankey Diagram</a>
             </button>
         </div>
         <div id="menu">
@@ -32,6 +32,19 @@
         </div>
         <div id="map"></div>
         <div id="legend"></div>
+        <div style="width: 900px; height: 50px; display: flex; flex-direction: row;">
+            <button id="playButton" type="button" onclick="startDate()">
+                <img id="buttonImage" src="./img/play-button.png" style="height: 100%; width: 100%; object-fit: cover;">
+            </button>
+            <div
+                style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
+                2013</div>
+            <input style=" margin-left: 10px; width: 600px;" type="range" id="dateSlider" min="0" max="1122" step="1"
+                value="0">
+            <div
+                style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
+                2023</div>
+        </div>
     </div>
     <script src="map_script.js"></script>
 </body>
