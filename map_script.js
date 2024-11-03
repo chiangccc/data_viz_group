@@ -1,8 +1,9 @@
 const width = 800;
 const height = 500;
 const colorScale = d3
-  .scaleSequential(d3.interpolatePlasma)
-  .domain([0, 1000000]);
+  .scaleThreshold()
+  .domain([1000, 5000, 10000, 50000, 100000, 500000, 1000000])
+  .range(d3.schemeReds[8]);
 
 const svg = d3
   .select("#map")
@@ -26,7 +27,6 @@ const projection = d3
   .geoMercator()
   .scale(130)
   .translate([width / 2, height / 1.5]);
-
 const path = d3.geoPath().projection(projection);
 
 let asylumData;
@@ -41,7 +41,6 @@ const countryNameMapping = {
   "S. Sudan": "South Sudan",
   Somaliland: "Somalia",
   "Côte d'Ivoire": "Cote d'Ivoire",
-  "South Korea": "South Korea",
   "Bosnia and Herz.": "Bosnia and Herzegovina",
   Macedonia: "North Macedonia",
   "Timor-Leste": "East Timor",
@@ -58,22 +57,25 @@ Promise.all([
 
   years = Array.from(new Set(asylumData.map((d) => d.Year)))
     .sort()
-    .filter((year) => year >= 2014 && year <= 2024);
+    .filter((year) => year >= 2013 && year <= 2023);
 
   createLegend();
-  updateMap(2014);
-  d3.select("#year").text("2014");
+  updateMap(2013);
+  d3.select("#year").text("2013");
 });
+let asylumApplications = {};
 
 function updateMap(year) {
-  const asylumApplications = {};
+  asylumApplications = {};
 
   asylumData.forEach((d) => {
     if (d.Year == year) {
       const country = d.Entity.trim();
       const refugees = +d["Refugees by country of origin"];
       if (!isNaN(refugees)) {
-        asylumApplications[country] = { refugees };
+        asylumApplications[countryNameMapping[country] || country] = {
+          refugees,
+        };
       }
     }
   });
@@ -85,17 +87,16 @@ function updateMap(year) {
     .attr("d", path)
     .attr("fill", (d) => {
       const countryName = d.properties.name;
-      const mappedCountryName = countryNameMapping[countryName] || countryName;
-      const asylumData = asylumApplications[mappedCountryName];
-
+      const asylumData =
+        asylumApplications[countryNameMapping[countryName] || countryName];
       return asylumData ? colorScale(asylumData.refugees) : "#ccc";
     })
-    .attr("stroke", "#999")
-    .attr("stroke-width", 0.5)
+    .attr("stroke", "#A9A9A9")
+    .attr("stroke-width", 0.8)
     .on("mouseover", function (event, d) {
       const countryName = d.properties.name;
-      const mappedCountryName = countryNameMapping[countryName] || countryName;
-      const asylumData = asylumApplications[mappedCountryName];
+      const asylumData =
+        asylumApplications[countryNameMapping[countryName] || countryName];
       const refugees = asylumData ? asylumData.refugees : "Unknown";
 
       d3.select(this)
@@ -122,9 +123,8 @@ function updateMap(year) {
         .duration(200)
         .attr("fill", (d) => {
           const countryName = d.properties.name;
-          const mappedCountryName =
-            countryNameMapping[countryName] || countryName;
-          const asylumData = asylumApplications[mappedCountryName];
+          const asylumData =
+            asylumApplications[countryNameMapping[countryName] || countryName];
           return asylumData ? colorScale(asylumData.refugees) : "#ccc";
         })
         .attr("stroke", "#999")
@@ -137,74 +137,83 @@ function updateMap(year) {
 
 function createLegend() {
   const legendWidth = 600;
-  const legendHeight = 15;
+  const legendHeight = 20;
 
   const legend = d3
     .select("#legend")
     .append("svg")
     .attr("width", legendWidth + 80)
     .attr("height", legendHeight + 60)
-    .attr("transform", "translate(" + (width - legendWidth) / 2 + ", 0)");
+    .attr("transform", `translate(${(width - legendWidth) / 2}, 0)`);
+
+  const ranges = [0, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
+  const legendData = ranges.slice(1).map((d, i) => ({
+    color: colorScale(d),
+    range: `${ranges[i]}`,
+    min: ranges[i],
+    max: d,
+  }));
+
+  const legendItemWidth = legendWidth / legendData.length;
 
   legend
-    .append("rect")
-    .attr("x", 0)
+    .selectAll("rect")
+    .data(legendData)
+    .join("rect")
+    .attr("x", (d, i) => i * legendItemWidth + 60)
     .attr("y", 0)
-    .attr("width", 40)
+    .attr("width", legendItemWidth)
     .attr("height", legendHeight)
-    .attr("fill", "#ccc");
+    .style("fill", (d) => d.color)
+    .style("cursor", "pointer")
+    .attr("stroke", "none")
+    .on("mouseover", function (event, d) {
+      d3.select(this).attr("stroke", "#000").attr("stroke-width", 2);
+      svg.selectAll("path").style("opacity", (countryData) => {
+        const countryName = countryData.properties.name;
+        const asylumData =
+          asylumApplications[countryNameMapping[countryName] || countryName];
+        if (
+          asylumData &&
+          asylumData.refugees >= d.min &&
+          asylumData.refugees <= d.max
+        ) {
+          return 1;
+        }
+        return 0.2;
+      });
+    })
+    .on("mouseout", function () {
+      d3.select(this).attr("stroke", "none").attr("stroke-width", 0);
 
+      svg.selectAll("path").style("opacity", 1);
+    });
+  // rgfsdfsefsdfsdfs
   legend
-    .append("text")
-    .attr("x", 20)
+    .selectAll("line")
+    .data(ranges)
+    .join("line")
+    .attr("x1", (d, i) => i * legendItemWidth + 60)
+    .attr("x2", (d, i) => i * legendItemWidth + 60)
+    .attr("y1", 0)
+    .attr("y2", legendHeight + 5)
+    .attr("stroke", "#000")
+    .attr("stroke-width", 1);
+  // dfsdfdsff5-----------------------------
+  legend
+    .selectAll("text")
+    .data(legendData)
+    .join("text")
+    .attr("x", (d, i) => i * legendItemWidth + 60)
     .attr("y", legendHeight + 15)
     .attr("text-anchor", "middle")
-    .style("font-size", "10px")
-    .text("No data");
-
-  legend
-    .append("rect")
-    .attr("x", 60)
-    .attr("y", 0)
-    .attr("width", legendWidth)
-    .attr("height", legendHeight)
-    .style("fill", "url(#gradient)");
-
-  const legendScale = d3
-    .scaleLog()
-    .domain([1000, 1000000])
-    .range([0, legendWidth]);
-
-  const legendAxis = d3
-    .axisBottom(legendScale)
-    .tickValues([1000, 5000, 10000, 50000, 100000, 500000, 1000000])
-    .tickFormat((d) =>
-      d >= 1000000 ? `${d / 1000000}M` : d >= 1000 ? `${d / 1000}K` : d
-    );
-
-  const gradient = legend
-    .append("defs")
-    .append("linearGradient")
-    .attr("id", "gradient")
-    .attr("x1", "0%")
-    .attr("x2", "100%");
-
-  for (let i = 0; i <= 100; i++) {
-    gradient
-      .append("stop")
-      .attr("offset", `${i}%`)
-      .attr("stop-color", colorScale(1000 + (i / 100) * 999000));
-  }
-
-  legend
-    .append("g")
-    .attr("transform", `translate(60, ${legendHeight + 10})`)
-    .call(legendAxis);
+    .style("font-size", "12px")
+    .text((d) => d.range);
 
   legend
     .append("text")
     .attr("x", legendWidth / 2 + 60)
-    .attr("y", legendHeight + 50)
+    .attr("y", legendHeight + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
     .style("font-weight", "bold")
@@ -222,7 +231,6 @@ function playTimeLapse() {
   const interval = setInterval(() => {
     const year = years[currentIndex];
     updateMap(year);
-
     d3.select("#year").text(year);
 
     if (currentIndex >= years.length - 1) {
