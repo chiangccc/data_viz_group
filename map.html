@@ -14,34 +14,48 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="btn_container">
-            <button>
-                <a href="./map.html">Cloropleth Map</a>
-            </button>
-            <button>
-                <a href="">Chart</a>
-            </button>
-            <button>
-                <a href="">Sankey Diagram</a>
-            </button>
-        </div>
-        <div id="map"></div>
-        <div id="legend"></div>
-        <div style="width: 900px; height: 50px; display: flex; flex-direction: row;">
-            <button id="playButton" type="button" onclick="startDate()">
-                <img id="buttonImage" src="./img/play-button.png" style="height: 100%; width: 100%; object-fit: cover;">
-            </button>
-            <div
-                style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
-                2013</div>
-            <input style=" margin-left: 10px; width: 600px;" type="range" id="dateSlider" min="0" max="1122" step="1"
-                value="0">
-            <div
-                style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
-                2023</div>
-        </div>
+    <header class="header">
+        <div class="container header__container">
+            <nav class="navigation">
+                <ul class="menu">
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./index.html"><b>Refugies</b></a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./map.html">Cloropleth Map</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./bars.html">Bar Charts</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./diagram.html">Sankey Diagram</a>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+    <div id="map"></div>
+    <div id="legend"></div>
+    <div style="width: 900px; height: 50px; display: flex; flex-direction: row;">
+        <button id="playButton" type="button" onclick="startDate()">
+            <img id="buttonImage" src="./img/play-button.png" style="height: 100%; width: 100%; object-fit: cover;">
+        </button>
+        <div
+            style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
+            2013</div>
+        <input style=" margin-left: 10px; width: 600px;" type="range" id="dateSlider" min="0" max="1122" step="1"
+            value="0">
+        <div
+            style=" margin-left: 10px; width: 100px; margin-top: 5px; background-color: rgb(242, 242, 242); height: 40px; line-height: 40px; font-size: 18px; text-align: center; border: 2px solid #000; border-radius: 10px;">
+            2023</div>
     </div>
+    </div>
+    <footer>
+        <div class="container container__footer">
+            <p class="footer-text"><b>Data Visualization and Visual Analytics Final Project</b><br>Students: Anna
+                Kompan, Partho, YuXuan<br>Professor: 王昱舜 (Wang Yushun)
+            </p>
+        </div>
+    </footer>
     <script src="map_script.js"></script>
 </body>
 

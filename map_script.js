@@ -53,7 +53,7 @@ const countryNameMapping = {
 
 Promise.all([
   d3.json("https://unpkg.com/world-atlas@2/countries-50m.json"),
-  d3.csv("refugee.csv"),
+  d3.csv("./data/map_data.csv"),
 ]).then(([worldData, csvData]) => {
   asylumData = csvData;
   countries = topojson.feature(worldData, worldData.objects.countries).features;

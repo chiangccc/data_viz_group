@@ -14,28 +14,44 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="btn_container">
-
-            <button>
-                <a href="./map.html">Cloropleth Map</a>
-            </button>
-            <button>
-                <a href="">Chart</a>
-            </button>
-            <button>
-                <a href="">Sankey Diagram</a>
-            </button>
+    <header class="header">
+        <div class="container header__container">
+            <nav class="navigation">
+                <ul class="menu">
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./index.html"><b>Refugees</b></a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./map.html">Cloropleth Map</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./bars.html">Bar Charts</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./diagram.html">Sankey Diagram</a>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+    <main>
+        <div class="container container__main">
+            <section class="about">
+                <h1 class="title">Global Refugees Rate Around The World</h1>
+                <p class="data-title"><b>Dataset: </b><a class="main__link"
+                        href="https://www.unhcr.org/refugee-statistics/download">Refugee population by country or
+                        territory
+                        of origin <br>by UNHCR</a></p>
+            </section>
         </div>
-
-
-        <div id="menu">
-            <span id="timelapse">Play time-lapse</span>
-            <span id="year"></span>
-        </div>
-        <div id="map"></div>
-        <div id="legend"></div>
+    </main>
     </div>
+    <footer>
+        <div class="container container__footer">
+            <p class="footer-text"><b>Data Visualization and Visual Analytics Final Project</b><br>Students: Anna
+                Kompan, Partho, YuXuan<br>Professor: 王昱舜 (Wang Yushun)
+            </p>
+        </div>
+    </footer>
     <script src="map_script.js"></script>
 </body>
 
