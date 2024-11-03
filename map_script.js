@@ -4,6 +4,9 @@ const colorScale = d3
   .scaleThreshold()
   .domain([1000, 5000, 10000, 50000, 100000, 500000, 1000000])
   .range(d3.schemeReds[8]);
+let start = false;
+let intervalId;
+let currentIndex = 0;
 
 const svg = d3
   .select("#map")
@@ -62,6 +65,7 @@ Promise.all([
   createLegend();
   updateMap(2013);
   d3.select("#year").text("2013");
+  initializeSlider();
 });
 let asylumApplications = {};
 
@@ -185,10 +189,9 @@ function createLegend() {
     })
     .on("mouseout", function () {
       d3.select(this).attr("stroke", "none").attr("stroke-width", 0);
-
       svg.selectAll("path").style("opacity", 1);
     });
-  // rgfsdfsefsdfsdfs
+
   legend
     .selectAll("line")
     .data(ranges)
@@ -199,7 +202,7 @@ function createLegend() {
     .attr("y2", legendHeight + 5)
     .attr("stroke", "#000")
     .attr("stroke-width", 1);
-  // dfsdfdsff5-----------------------------
+
   legend
     .selectAll("text")
     .data(legendData)
@@ -225,18 +228,45 @@ year_btn.on("click", function () {
   playTimeLapse();
 });
 
-function playTimeLapse() {
-  let currentIndex = 0;
+function startDate() {
+  const buttonImage = document.getElementById("buttonImage");
+  if (start) {
+    buttonImage.src = "./img/play-button.png";
+    clearInterval(intervalId);
+  } else {
+    buttonImage.src = "./img/stop-button.png";
+    playTimeLapse();
+  }
+  start = !start;
+}
 
-  const interval = setInterval(() => {
+function updateYearFromSlider() {
+  const slider = document.getElementById("dateSlider");
+  currentIndex = slider.value;
+  const year = years[currentIndex];
+  updateMap(year);
+  d3.select("#currentYear").text(year);
+}
+
+function playTimeLapse() {
+  intervalId = setInterval(() => {
+    if (currentIndex >= years.length) {
+      currentIndex = 0;
+    }
     const year = years[currentIndex];
     updateMap(year);
     d3.select("#year").text(year);
+    document.getElementById("dateSlider").value = currentIndex;
+    currentIndex++;
+  }, 1500);
+}
 
-    if (currentIndex >= years.length - 1) {
-      clearInterval(interval);
-    } else {
-      currentIndex++;
-    }
-  }, 1000);
+function initializeSlider() {
+  const slider = d3
+    .select("#dateSlider")
+    .attr("min", 0)
+    .attr("max", years.length - 1)
+    .attr("value", 0)
+    .on("input", updateYearFromSlider);
+  d3.select("#currentYear").text(years[0]);
 }
