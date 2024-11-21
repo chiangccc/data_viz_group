@@ -35,6 +35,7 @@ const path = d3.geoPath().projection(projection);
 let asylumData;
 let countries;
 let years;
+let selectedYear = "2013";
 
 const countryNameMapping = {
   "United States of America": "United States",
@@ -50,7 +51,11 @@ const countryNameMapping = {
   "Dominican Rep.": "Dominican Republic",
   "Solomon Is.": "Solomon Islands",
 };
-
+const yearBox = d3.select("#year").append("select");
+yearBox.on("change", function () {
+  selectedYear = this.value;
+  updateMap();
+});
 Promise.all([
   d3.json("https://unpkg.com/world-atlas@2/countries-50m.json"),
   d3.csv("./data/map_data.csv"),
@@ -147,8 +152,7 @@ function createLegend() {
     .select("#legend")
     .append("svg")
     .attr("width", legendWidth + 80)
-    .attr("height", legendHeight + 60)
-    .attr("transform", `translate(${(width - legendWidth) / 2}, 0)`);
+    .attr("height", legendHeight + 60);
 
   const ranges = [0, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
   const legendData = ranges.slice(1).map((d, i) => ({
@@ -159,6 +163,7 @@ function createLegend() {
   }));
 
   const legendItemWidth = legendWidth / legendData.length;
+  let selectedRanges = new Set();
 
   legend
     .selectAll("rect")
@@ -171,26 +176,55 @@ function createLegend() {
     .style("fill", (d) => d.color)
     .style("cursor", "pointer")
     .attr("stroke", "none")
-    .on("mouseover", function (event, d) {
-      d3.select(this).attr("stroke", "#000").attr("stroke-width", 2);
-      svg.selectAll("path").style("opacity", (countryData) => {
-        const countryName = countryData.properties.name;
-        const asylumData =
-          asylumApplications[countryNameMapping[countryName] || countryName];
-        if (
-          asylumData &&
-          asylumData.refugees >= d.min &&
-          asylumData.refugees <= d.max
-        ) {
-          return 1;
-        }
-        return 0.2;
-      });
+    .each(function (d) {
+      d.selected = false;
     })
-    .on("mouseout", function () {
-      d3.select(this).attr("stroke", "none").attr("stroke-width", 0);
-      svg.selectAll("path").style("opacity", 1);
+    .on("mouseover", function (event, d) {
+      if (!d.selected) {
+        d3.select(this).attr("stroke", "#000").attr("stroke-width", 2);
+      }
+    })
+    .on("mouseout", function (event, d) {
+      if (!d.selected) {
+        d3.select(this).attr("stroke", "none").attr("stroke-width", 0);
+      }
+    })
+    .on("click", function (event, d) {
+      d.selected = !d.selected;
+      if (d.selected) {
+        selectedRanges.add(`${d.min}-${d.max}`);
+        d3.select(this).attr("stroke", "#000").attr("stroke-width", 2);
+      } else {
+        selectedRanges.delete(`${d.min}-${d.max}`);
+        d3.select(this).attr("stroke", "none").attr("stroke-width", 0);
+      }
+
+      updateCountryOpacity();
     });
+
+  function updateCountryOpacity() {
+    const ranges = Array.from(selectedRanges).map((range) => {
+      const [min, max] = range.split("-").map(Number);
+      return { min, max };
+    });
+
+    svg.selectAll("path").style("opacity", (countryData) => {
+      const countryName = countryData.properties.name;
+      const asylumData =
+        asylumApplications[countryNameMapping[countryName] || countryName];
+
+      if (!asylumData) {
+        return 0.2;
+      }
+
+      const isInRange = ranges.some(
+        (range) =>
+          asylumData.refugees >= range.min && asylumData.refugees <= range.max
+      );
+
+      return isInRange ? 1 : 0.2;
+    });
+  }
 
   legend
     .selectAll("line")
@@ -245,7 +279,7 @@ function updateYearFromSlider() {
   currentIndex = slider.value;
   const year = years[currentIndex];
   updateMap(year);
-  d3.select("#currentYear").text(year);
+  d3.select("#year").text(year);
 }
 
 function playTimeLapse() {
@@ -258,7 +292,7 @@ function playTimeLapse() {
     d3.select("#year").text(year);
     document.getElementById("dateSlider").value = currentIndex;
     currentIndex++;
-  }, 1500);
+  }, 1000);
 }
 
 function initializeSlider() {
@@ -268,5 +302,4 @@ function initializeSlider() {
     .attr("max", years.length - 1)
     .attr("value", 0)
     .on("input", updateYearFromSlider);
-  d3.select("#currentYear").text(years[0]);
 }
