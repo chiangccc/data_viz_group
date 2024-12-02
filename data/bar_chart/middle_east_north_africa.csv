@@ -1,17 +1,3 @@
-Extracted:,"United Nations High Commissioner for Refugees"
-"Date extracted:","03/11/2024 13:34 UTC"
-"Last updated:","8 October 2024"
-"Some data presented may differ from statistics published previously due to retroactive changes or the inclusion of previously unavailable data."
-
-"Data table contains the following:","Population figures"
-"Content type","End year stock population totals"
-"Data quick link",
-"Data definitions",https://www.unhcr.org/refugee-statistics/methodology/
-"Usage licence",https://creativecommons.org/licenses/by/4.0/
-"Population types included","REF,ROC,ASY,IDP,IOC,OIP,OOC,STA"
-Years:,"2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
-Origin:,"211,210,198,195,185,69,163,157,146,130,119,107,109,104,96,93,92,8,14,4"
-"Country of asylum:","214,213,211,210,174,207,204,203,201,262,202,186,70,198,200,199,197,187,190,196,195,194,193,192,191,218,188,189,185,184,183,246,178,177,216,69,112,173,179,245,159,172,171,181,180,255,168,169,166,164,165,163,176,170,208,249,261,206,108,175,161,160,158,222,122,102,157,156,155,154,151,150,149,153,148,152,147,146,143,233,120,142,141,139,140,145,62,138,137,144,136,135,131,130,228,133,129,121,66,124,134,119,118,125,132,126,123,127,128,117,114,113,111,107,106,110,109,115,105,100,104,101,99,98,96,97,95,94,93,90,92,91,89,88,86,85,83,205,81,80,75,79,78,232,227,77,253,76,74,73,72,71,68,67,63,59,64,61,60,65,58,182,57,56,55,162,8,54,53,52,51,50,41,103,49,48,254,390,46,84,290,87,45,43,40,42,44,116,82,37,38,36,34,35,33,39,32,47,16,23,30,28,225,27,238,26,29,229,25,22,19,18,31,17,24,15,20,14,21,13,12,11,224,10,9,7,223,6,5,4,3,2,263,278"
 Year,"Country of origin","Country of asylum","Refugees under UNHCR's mandate",Asylum-seekers,"Returned refugees","IDPs of concern to UNHCR","Returned IDPss","Stateless persons","Others of concern","Other people in need of international protection","Host Community"
 2013,Egypt,Albania,5,0,0,0,0,0,0,,0
 2013,Palestinian,Albania,5,0,0,0,0,0,0,,0

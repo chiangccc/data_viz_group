@@ -169,11 +169,6 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-/* #playButton:hover,
-#playButton:focus {
-  color: #c2120c;
-  cursor: pointer;
-} */
 
 #buttonImage {
   width: 30px;
@@ -210,7 +205,7 @@ button {
   width: 600px;
 }
 
-/* =================================================================footer================================================================= */
+/* =================================================================FOOTER================================================================= */
 footer {
   background-color: #2f303a;
   padding-top: 60px;
@@ -229,6 +224,111 @@ footer {
 }
 .footer-text {
   color: #fff;
+}
+/* ================================================================= BARS ================================================================= */
+.tick text {
+  font-size: 12px;
+  fill: #635f5d;
+}
+
+.total-bars {
+  justify-content: center;
+  display: flex;
+}
+
+.total-bars-title {
+  text-align: center;
+}
+.scroll-container {
+  height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.tooltip {
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tick line {
+  stroke: #c0c0bb;
+}
+
+.axis-label {
+  font-size: 5em;
+  fill: #8e8883;
+}
+
+.text-container {
+  padding-top: 200px;
+}
+
+#menus {
+  padding-top: 20px;
+  font-size: 19px;
+  align-items: center;
+  display: flex;
+  gap: 15px;
+  color: #635f5d;
+}
+.menu_selection {
+  color: #635f5d;
+}
+#asylum_origin_menu,
+#ascend_descend_menu {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+}
+.continent_container {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  font-size: 19px;
+  color: #635f5d;
+  align-content: center;
+}
+.continent_container-item,
+.bars-text-container_item {
+  display: flex;
+  font-size: 19px;
+  gap: 4px;
+  color: #635f5d;
+  align-content: center;
+  align-items: center;
+}
+.bars-text-container_item {
+  padding-top: 10px;
+}
+
+.nav-tabs {
+  padding-top: 30px;
+}
+
+.nav-link {
+  background-color: #f0f0f0;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  color: #635f5d;
+  padding: 15px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.active {
+  background-color: #ffd09b;
+}
+
+.tooltip {
+  position: absolute;
+  font-size: 0.8em;
+  text-align: center;
 }
 /* =================================================================姜欣妤 START DIAGRAM CSS================================================================= */
 

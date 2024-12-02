@@ -2,11 +2,13 @@ const width = 800;
 const height = 500;
 const colorScale = d3
   .scaleThreshold()
-  .domain([1000, 5000, 10000, 50000, 100000, 500000, 1000000])
-  .range(d3.schemeReds[8]);
+  .domain([1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000])
+  .range(d3.schemeReds[9]);
 let start = false;
 let intervalId;
 let currentIndex = 0;
+
+const formatNumber = d3.format(",");
 
 const svg = d3
   .select("#map")
@@ -117,7 +119,11 @@ function updateMap(year) {
 
       tooltip.transition().duration(200).style("opacity", 1);
       tooltip
-        .html(`<strong>${countryName}</strong><br>Refugees: ${refugees}`)
+        .html(
+          `<strong>${countryName}</strong><br>Refugees: ${formatNumber(
+            refugees
+          )}`
+        )
         .style("left", event.pageX + 10 + "px")
         .style("top", event.pageY - 20 + "px");
     })
@@ -154,7 +160,9 @@ function createLegend() {
     .attr("width", legendWidth + 80)
     .attr("height", legendHeight + 60);
 
-  const ranges = [0, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
+  const ranges = [
+    0, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000,
+  ];
   const legendData = ranges.slice(1).map((d, i) => ({
     color: colorScale(d),
     range: `${ranges[i]}`,
@@ -245,7 +253,7 @@ function createLegend() {
     .attr("y", legendHeight + 15)
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
-    .text((d) => d.range);
+    .text((d) => `${formatNumber(d.range)}+`);
 
   legend
     .append("text")
@@ -303,3 +311,16 @@ function initializeSlider() {
     .attr("value", 0)
     .on("input", updateYearFromSlider);
 }
+
+d3.csv("/data/map_data.csv").then(function (data) {
+  data.forEach((d) => {
+    d["Refugees by country of origin"] = +d["Refugees by country of origin"];
+  });
+  const maxdata = d3.max(data, (d) => d["Refugees by country of origin"]);
+  const maxDataRow = data.find(
+    (d) => d["Refugees by country of origin"] === maxdata
+  );
+  console.log(
+    `Currently ${maxDataRow.Entity} has muximum refugees: ${maxdata}`
+  );
+});
