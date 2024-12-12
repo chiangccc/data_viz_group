@@ -33,14 +33,14 @@ const menu1 = d3.select("#asylum_origin_menu");
 const yearCheckboxes = d3.selectAll(".year-checkbox");
 
 const continentFiles = {
-  Europe: "/data/bar_chart/europe.csv",
-  "Asia and The Pacific": "/data/bar_chart/asia_and_the_pacific.csv",
-  "Southern Africa": "/data/bar_chart/southern_africa.csv",
-  "West and Central Africa": "/data/bar_chart/west_and_central_africa.csv",
-  "Middle East North Africa": "/data/bar_chart/middle_east_north_africa.csv",
-  America: "data/bar_chart/americas.csv",
-  "East Horn Of Africa": "/data/bar_chart/east_horn_of_Africa.csv",
-  All: "/data/bar_chart/all_countries.csv",
+  Europe: "./data/bar_chart/europe.csv",
+  "Asia and The Pacific": "./data/bar_chart/asia_and_the_pacific.csv",
+  "Southern Africa": "./data/bar_chart/southern_africa.csv",
+  "West and Central Africa": "./data/bar_chart/west_and_central_africa.csv",
+  "Middle East North Africa": "./data/bar_chart/middle_east_north_africa.csv",
+  America: "./data/bar_chart/americas.csv",
+  "East Horn Of Africa": "./data/bar_chart/east_horn_of_Africa.csv",
+  All: "./data/bar_chart/all_countries.csv",
 };
 
 const yearColors = {
