@@ -94,7 +94,7 @@ button {
       rgba(47, 48, 58, 0.4),
       rgba(47, 48, 58, 0.4)
     ),
-    url(./img/pexel_map.jpg);
+    url(/img/pexel_map.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -305,9 +305,16 @@ footer {
 .bars-text-container_item {
   padding-top: 10px;
 }
-
+.years-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .nav-tabs {
   padding-top: 30px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .nav-link {
@@ -315,7 +322,7 @@ footer {
   border: 1px solid #707070;
   border-radius: 4px;
   color: #635f5d;
-  padding: 15px 22px;
+  padding: 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

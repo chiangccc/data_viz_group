@@ -1,4 +1,3 @@
-// ====================for top 10 countries!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const stackedSvg = d3.select("#stacked-bars-plot");
 const stackedMargin = { top: 20, right: 30, bottom: 30, left: 300 };
 const stackedWidth =
@@ -60,23 +59,28 @@ const yearColors = {
 
 const updateChart = (filePath) => {
   d3.csv(filePath).then((data) => {
+    // Parse numeric values for refugees
     data.forEach((d) => {
       d["Refugees under UNHCR's mandate"] =
         +d["Refugees under UNHCR's mandate"];
     });
 
+    // Get selected years
     const selectedYears = Array.from(yearCheckboxes.nodes())
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
 
+    // Filter data based on selected years
     const filteredData = data.filter((d) => selectedYears.includes(d.Year));
 
+    // Determine groupBy and sorting options
     const groupBy =
       menu1.property("value") === "asylum"
         ? "Country of asylum"
         : "Country of origin";
     const sortOrder = menu2.property("value");
 
+    // Aggregate data
     const aggregatedData = d3
       .rollups(
         filteredData,
@@ -95,14 +99,17 @@ const updateChart = (filePath) => {
         total: d3.sum(years, ([, value]) => value),
       }));
 
+    // Sort data
     aggregatedData.sort((a, b) =>
       sortOrder === "ascending"
         ? d3.ascending(a.total, b.total)
         : d3.descending(a.total, b.total)
     );
 
+    // Get top 10 countries
     const top10Data = aggregatedData.slice(0, 10);
 
+    // Update chart dimensions
     const chartHeight =
       top10Data.length * (stackedBarHeight + stackedBarSpacing);
     stackedSvg.attr(
@@ -113,26 +120,34 @@ const updateChart = (filePath) => {
     yScale.domain(top10Data.map((d) => d.country)).range([0, chartHeight]);
     xScale.domain([0, d3.max(top10Data, (d) => d.total)]);
 
+    // Update axes
     xAxisGroup
       .attr("transform", `translate(0,${chartHeight})`)
       .call(d3.axisBottom(xScale));
     yAxisGroup.call(d3.axisLeft(yScale));
 
+    // Bind data to bar groups
     const bars = chart
       .selectAll(".bar-group")
       .data(top10Data, (d) => d.country);
 
+    // Enter and update bar groups
     const barsEnter = bars.enter().append("g").attr("class", "bar-group");
 
     barsEnter
       .merge(bars)
       .attr("transform", (d) => `translate(0,${yScale(d.country)})`);
 
-    const stackedBars = barsEnter.selectAll("rect").data(
-      (d) => d.years,
-      (d) => d.year
-    );
+    // Bind data to rectangles for each bar group
+    const stackedBars = bars
+      .merge(barsEnter)
+      .selectAll("rect")
+      .data(
+        (d) => d.years,
+        (d) => d.year
+      );
 
+    // Enter and update rectangles
     stackedBars
       .enter()
       .append("rect")
@@ -167,7 +182,10 @@ const updateChart = (filePath) => {
         tooltip.style("opacity", 0);
       });
 
+    // Exit and remove rectangles
     stackedBars.exit().remove();
+
+    // Exit and remove bar groups
     bars.exit().remove();
   });
 };
