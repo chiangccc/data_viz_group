@@ -28,7 +28,6 @@ const tooltip = d3
   .style("opacity", 0);
 
 const menu1 = d3.select("#asylum_origin_menu");
-// const menu2 = d3.select("#ascend_descend_menu");
 
 const yearCheckboxes = d3.selectAll(".year-checkbox");
 
@@ -94,12 +93,7 @@ const updateChart = (filePath) => {
         total: d3.sum(years, ([, value]) => value),
       }));
 
-    // Sort data
     aggregatedData.sort((a, b) => d3.descending(a.total, b.total));
-    //   sortOrder === "ascending"
-    //     ? d3.ascending(a.total, b.total)
-    //     : d3.descending(a.total, b.total)
-    // );
 
     const top10Data = aggregatedData.slice(0, 10);
 
@@ -191,12 +185,6 @@ menu1.on("change", () => {
   const filePath = continentFiles[activeContinent] || continentFiles["All"];
   updateChart(filePath);
 });
-
-// menu2.on("change", () => {
-//   const activeContinent = d3.select(".nav-link.active").text();
-//   const filePath = continentFiles[activeContinent] || continentFiles["All"];
-//   updateChart(filePath);
-// });
 
 yearCheckboxes.on("change", () => {
   const activeContinent = d3.select(".nav-link.active").text();

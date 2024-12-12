@@ -35,22 +35,24 @@
             </nav>
     </header>
     <main>
-        <div class="container">
-            <section class="map">
-                <div id="year"></div>
-                <div id="map"></div>
-                <div id="legend"></div>
-                <div class="timelapse_box">
-                    <button id="playButton" type="button" onclick="startDate()">
-                        <img id="buttonImage" src="./img/play-button.png">
-                    </button>
-                    <div class="start-year">
-                        2013</div>
-                    <input id="dateSlider" type="range" min="0" max="1122" step="1" value="0">
-                    <div class="end-year">
-                        2023</div>
+        <section class="map-section">
+            <div id="year"></div>
+            <div class="svg-container">
+                <div id="map">
+                    <svg id='map-svg' width="800" height="500"></svg>
                 </div>
-        </div>
+                <div id="legend"></div>
+            </div>
+            <div class="timelapse_box">
+                <button id="playButton" type="button" onclick="startDate()">
+                    <img id="buttonImage" src="./img/play-button.png">
+                </button>
+                <div class="start-year">
+                    2013</div>
+                <input id="dateSlider" type="range" min="0" max="1122" step="1" value="0">
+                <div class="end-year">
+                    2023</div>
+            </div>
         </section>
         </div>
     </main>
