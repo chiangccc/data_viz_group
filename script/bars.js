@@ -11,7 +11,7 @@ const g = svg
   .append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
 
-d3.csv("/data/bar_chart/all_countries.csv").then(function (data) {
+d3.csv("./data/bar_chart/all_countries.csv").then(function (data) {
   const yearlyData = d3.rollup(
     data,
     (v) => ({
