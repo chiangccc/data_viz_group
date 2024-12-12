@@ -1,5 +1,6 @@
-const width = 800;
-const height = 500;
+const svg = d3.select("#map-svg");
+const width = +svg.attr("width");
+const height = +svg.attr("height");
 const colorScale = d3
   .scaleThreshold()
   .domain([1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000])
@@ -10,11 +11,7 @@ let currentIndex = 0;
 
 const formatNumber = d3.format(",");
 
-const svg = d3
-  .select("#map")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
+svg.attr("width", width).attr("height", height);
 
 const tooltip = d3
   .select("body")
