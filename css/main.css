@@ -108,12 +108,12 @@ button {
 }
 @media screen and (min-width: 768px) {
   .menu__link {
-    font-size: 19px;
+    font-size: 18px;
   }
 }
 @media screen and (min-width: 1000px) {
   .menu__link {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
@@ -200,17 +200,13 @@ button {
   }
 }
 
-.svg-container {
+.plot-container {
   background-color: var(--map-background);
-
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
 }
 
-#map {
-  background-color: var(--map-background);
-}
 @media screen and (min-width: 768px) {
   #map {
     display: flex;
@@ -234,9 +230,17 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-#legend {
-  display: flex;
-  justify-content: center;
+@media screen and (min-width: 768px) {
+  #legend {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #legend {
+    display: flex;
+    justify-content: center;
+  }
 }
 .timelapse_box {
   height: 50px;
@@ -250,46 +254,65 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 #playButton {
-  padding: 5px 15px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 2px 10px 0;
   color: #000;
   background-color: #fff;
   border-radius: 10px;
   cursor: pointer;
+  margin-top: 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #buttonImage {
-  width: 30px;
+  width: 80px;
   height: auto;
   max-width: 100%;
   object-fit: cover;
 }
-.start-year {
-  margin-left: 10px;
-  width: 100px;
-  margin-top: 5px;
-  background-color: rgb(242, 242, 242);
-  height: 40px;
-  line-height: 40px;
-  font-size: 18px;
-  text-align: center;
-  border: 2px solid #000;
-  border-radius: 10px;
+@media screen and (min-width: 768px) {
+  #buttonImage {
+    width: 30px;
+  }
 }
+@media screen and (min-width: 1000px) {
+  #buttonImage {
+    width: 30px;
+  }
+}
+
+.start-year,
 .end-year {
-  margin-left: 10px;
+  margin-left: 5px;
   width: 100px;
   margin-top: 5px;
   background-color: rgb(242, 242, 242);
-  height: 40px;
-  line-height: 40px;
-  font-size: 18px;
+  height: 25px;
+  line-height: 10px;
+  font-size: 13px;
   text-align: center;
   border: 2px solid #000;
   border-radius: 10px;
+  padding: 5px;
 }
+@media screen and (min-width: 768px) {
+  .start-year,
+  .end-year {
+    margin-left: 8px;
+    font-size: 16px;
+    height: 30px;
+    line-height: 20px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .start-year,
+  .end-year {
+    margin-left: 10px;
+    font-size: 18px;
+    height: 40px;
+    line-height: 30px;
+  }
+}
+
 #dateSlider {
   margin-left: 10px;
   width: 600px;
@@ -318,14 +341,12 @@ footer {
   display: flex;
   justify-content: center;
   text-align: center;
-}
-.footer-text {
   color: var(--text-color);
-  font-size: 18px;
+  font-size: 16px;
 }
 @media screen and (min-width: 768px) {
   .footer-text {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 @media screen and (min-width: 1200px) {
@@ -333,32 +354,49 @@ footer {
     font-size: 24px;
   }
 }
+
 /* ================================================================= BARS ================================================================= */
+.total-bars-title {
+  text-align: center;
+  font-size: 24px;
+}
+@media screen and (min-width: 768px) {
+  .total-bars-title {
+    font-size: 36px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .total-bars-title {
+    font-size: 48px;
+  }
+}
 .tick text {
   font-size: 12px;
   fill: #635f5d;
 }
 
 .total-bars {
-  justify-content: center;
-  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+@media screen and (min-width: 768px) {
+  .total-bars {
+    margin-left: 0;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .total-bars {
+    justify-content: center;
+    display: flex;
+  }
 }
 
-.total-bars-title {
-  text-align: center;
-}
 .scroll-container {
   height: 500px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
-}
-.tooltip {
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: left;
-  pointer-events: none;
-  white-space: nowrap;
 }
 
 .tick line {
@@ -376,12 +414,26 @@ footer {
 
 #menus {
   padding-top: 20px;
-  font-size: 19px;
-  align-items: center;
-  display: flex;
-  gap: 15px;
+  font-size: 14px;
   color: #635f5d;
 }
+@media screen and (min-width: 768px) {
+  #menus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #menus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 19px;
+  }
+}
+
 .menu_selection {
   color: #635f5d;
 }
@@ -405,16 +457,44 @@ footer {
 .bars-text-container_item {
   padding-top: 10px;
 }
-.years-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+
+@media screen and (max-width: 500px) {
+  .years-checkbox {
+    margin-top: 15px;
+    width: 200px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .years-checkbox {
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .years-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 }
 .nav-tabs {
-  padding-top: 30px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+  padding-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .nav-tabs {
+    padding-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .nav-tabs {
+    padding-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
 }
 
 .nav-link {
@@ -422,20 +502,32 @@ footer {
   border: 1px solid #707070;
   border-radius: 4px;
   color: #635f5d;
-  padding: 8px;
+  padding: 3px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
+}
+@media screen and (min-width: 768px) {
+  .nav-link {
+    padding: 5px;
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .nav-link {
+    padding: 8px;
+    font-size: 16px;
+  }
 }
 .active {
   background-color: #ffd09b;
 }
 
-.tooltip {
-  position: absolute;
-  font-size: 0.8em;
-  text-align: center;
+.stacked-bars-box {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 /* =================================================================姜欣妤 START DIAGRAM CSS================================================================= */
 
