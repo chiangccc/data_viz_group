@@ -145,12 +145,11 @@ const updateChart = (filePath) => {
       .attr("width", (d) => xScale(d.value))
       .attr("fill", (d) => yearColors[d.year])
       .on("mouseover", function (event, d) {
+        const format = d3.format(",");
         d3.select(this).attr("stroke", "black").attr("stroke-width", 2);
         tooltip
           .style("opacity", 1)
-          .html(
-            `<b>${d.year}</b><br>Refugees under UNHCR's mandate: ${d.value}`
-          )
+          .html(`<b>${d.year}</b><br>Refugees: ${format(d.value)}`)
           .style("left", event.pageX + 10 + "px")
           .style("top", event.pageY - 20 + "px");
       })

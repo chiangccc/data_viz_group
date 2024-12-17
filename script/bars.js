@@ -66,7 +66,7 @@ d3.csv("./data/bar_chart/all_countries.csv").then(function (data) {
     .append("rect")
     .attr("x", (d) => x1(d.key))
     .attr("y", chartHeight)
-    .attr("width", 80)
+    .attr("width", 60)
     .attr("height", 0)
     .attr("fill", (d) => color(d.key))
     .transition()
@@ -80,7 +80,7 @@ d3.csv("./data/bar_chart/all_countries.csv").then(function (data) {
     .data((d) => [{ key: "refugees", value: d.refugees }])
     .enter()
     .append("text")
-    .attr("x", (d) => x1.bandwidth() - 10)
+    .attr("x", (d) => x1.bandwidth() - 3)
     .attr("y", chartHeight)
     .text("0")
     .transition()
@@ -88,7 +88,7 @@ d3.csv("./data/bar_chart/all_countries.csv").then(function (data) {
     .delay((d, i) => i * 600)
     .attr("y", (d) => y(d.value) - 5)
     .tween("text", function (d) {
-      const i = d3.interpolateRound(0, d.value);
+      const i = d3.interpolateRound(0, d.value / 1000);
       return function (t) {
         this.textContent = d3.format(",")(i(t));
       };

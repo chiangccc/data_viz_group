@@ -148,14 +148,11 @@ function updateMap(year) {
 }
 
 function createLegend() {
-  const legendWidth = 600;
-  const legendHeight = 20;
+  const legend = d3.select("#legend-svg");
+  const legendWidth = +legend.attr("width");
+  const legendHeight = +legend.attr("height");
 
-  const legend = d3
-    .select("#legend")
-    .append("svg")
-    .attr("width", legendWidth + 80)
-    .attr("height", legendHeight + 60);
+  legend.attr("width", legendWidth + 80).attr("height", legendHeight + 60);
 
   const ranges = [
     0, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000,
@@ -316,8 +313,5 @@ d3.csv("/data/map_data.csv").then(function (data) {
   const maxdata = d3.max(data, (d) => d["Refugees by country of origin"]);
   const maxDataRow = data.find(
     (d) => d["Refugees by country of origin"] === maxdata
-  );
-  console.log(
-    `Currently ${maxDataRow.Entity} has muximum refugees: ${maxdata}`
   );
 });
