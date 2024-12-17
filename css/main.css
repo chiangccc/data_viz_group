@@ -136,7 +136,7 @@ button {
       rgba(47, 48, 58, 0.4),
       rgba(47, 48, 58, 0.4)
     ),
-    url(/img/pexel_map.jpg);
+    url(../img/pexel_map.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
