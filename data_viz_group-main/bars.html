@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugees-Statistics</title>
+    <link rel="icon" href="./img/refugee.png" type="image/png">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+        integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <nav class="navigation">
+                <ul class="menu">
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./index.html"><b>Refugees</b></a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./map.html">Choropleth Map</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./bars.html">Bar Charts</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./diagram.html">Sankey Diagram</a>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1 class="total-bars-title">Total Number of Refugees <br> Within 2013-2023 Years</h1>
+            <section class="total-bars">
+                <svg id="bars-plot" width="1000" height="500"></svg>
+            </section>
+            <section class="bars">
+                <div id="menus">
+                    Sort by:
+                    <select id="asylum_origin_menu">
+                        <option value="asylum">Country of Asylum</option>
+                        <option value="origin">Country of Origin</option>
+                    </select>
+                    <div class="years-checkbox">
+                        <label>Select Years:</label>
+                        <div>
+                            <label style="color: #740938;">
+                                <input type="checkbox" value="2013" class="year-checkbox" checked> 2013
+                            </label>
+                            <label style="color: #FFB38E;">
+                                <input type="checkbox" value="2014" class="year-checkbox" checked> 2014
+                            </label>
+                            <label style="color: #DE8F5F;">
+                                <input type="checkbox" value="2015" class="year-checkbox" checked> 2015
+                            </label>
+                            <label style="color: #624E88;">
+                                <input type="checkbox" value="2016" class="year-checkbox" checked> 2016
+                            </label>
+                            <label style="color: #CB80AB;">
+                                <input type="checkbox" value="2017" class="year-checkbox" checked> 2017
+                            </label>
+                            <label style="color: #343131;">
+                                <input type="checkbox" value="2018" class="year-checkbox" checked> 2018
+                            </label>
+                            <label style="color: #A04747;">
+                                <input type="checkbox" value="2019" class="year-checkbox" checked> 2019
+                            </label>
+                            <label style="color: #C7253E;">
+                                <input type="checkbox" value="2020" class="year-checkbox" checked> 2020
+                            </label>
+                            <label style="color: #821131;">
+                                <input type="checkbox" value="2021" class="year-checkbox" checked> 2021
+                            </label>
+                            <label style="color: #522258;">
+                                <input type="checkbox" value="2022" class="year-checkbox" checked> 2022
+                            </label>
+                            <label style="color: #D95F59;">
+                                <input type="checkbox" value="2023" class="year-checkbox" checked> 2023
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="continent-nav">
+                    <div class="nav-tabs" role="tablist">
+                        <button class="nav-link active" id="europe-tab" type="button">Europe</button>
+                        <button class="nav-link" id="asia-pacific-tab" type="button">Asia and The Pacific</button>
+                        <button class="nav-link" id="southern-africa-tab" type="button">Southern Africa</button>
+                        <button class="nav-link" id="west-and-central-africa-tab" type="button">West and Central
+                            Africa</button>
+                        <button class="nav-link" id="mid-east-north-africa-tab" type="button">Middle East North
+                            Africa</button>
+                        <button class="nav-link" id="america-tab" type="button">America</button>
+                        <button class="nav-link" id="east-horn-africa-tab" type="button">East Horn Of Africa</button>
+                        <button class="nav-link" id="all-tab" type="button">All Countries</button>
+                    </div>
+                </nav>
+
+                <div class="stacked-bars-box">
+                    <svg id="stacked-bars-plot" width="1000" height="500"></svg>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container container__footer">
+            <p class="footer-text"><b>Data Visualization and Visual Analytics Final Project</b><br>Students: Anna
+                Kompan, Partho Adhikari, 姜欣妤<br>Professor: 王昱舜 (Wang Yushun)
+            </p>
+        </div>
+    </footer>
+    <script src="./script/bars.js"></script>
+    <script src="./script/bars2.js"></script>
+</body>
+
+</html>
