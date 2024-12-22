@@ -1,32 +1,40 @@
 // 主程式
-d3.csv("./data/all_countries.csv").then(function (rawData) {
+d3.csv("./data/bar_chart/all_countries.csv").then(function (rawData) {
     // 過濾資料：初始只移除值為 0 的資料
-    let filteredData = rawData.filter(d => +d["Refugees under UNHCR's mandate"] !== 0);
-
+    let filteredData = rawData.filter(d => (+d["Refugees under UNHCR's mandate"] !== 0) && 
+    (+d["Refugees under UNHCR's mandate"] > 20) &&
+    (d["Country of origin"] !== "Serbia and Kosovo: S/RES/1244 (1999)") &&
+    (d["Country of asylum"] !== "Serbia and Kosovo: S/RES/1244 (1999)"));
+    
     // 初始化下拉選單
     createDropdownOptions(filteredData, "Year", "year-select");
     createDropdownOptions(filteredData, "Country of origin", "origin-select");
     createDropdownOptions(filteredData, "Country of asylum", "asylum-select");
 
-    // 綁定下拉選單事件
-    d3.selectAll("select").on("change", function () {
+    // 綁定篩選條件（下拉選單和門檻值）事件
+    d3.selectAll("select, #threshold-select").on("change", function () {
         const filters = getDropdownValues();
-        const { origin, asylum } = filters;
+        const threshold = +d3.select("#threshold-select").property("value"); // 獲取門檻值
 
-        // 根據條件設置篩選門檻
-        let currentFilteredData = filteredData;
-        if (origin === "all" && asylum === "all") {
-            currentFilteredData = currentFilteredData.filter(d => +d["Refugees under UNHCR's mandate"] > 1000);
+        // 根據篩選條件篩選數據
+        let currentFilteredData = filteredData.filter(d => +d["Refugees under UNHCR's mandate"] > threshold);
+
+        if (filters.origin !== "all") {
+            currentFilteredData = currentFilteredData.filter(d => d["Country of origin"] === filters.origin);
         }
 
-        // 生成圖表資料並重新繪製
-        const graph = makeGraph(currentFilteredData, filters.year, filters.origin, filters.asylum);
-        clearCanvas();
-        draw(graph);
-    });
+        if (filters.asylum !== "all") {
+            currentFilteredData = currentFilteredData.filter(d => d["Country of asylum"] === filters.asylum);
+        }
+
+    // 生成圖表數據並重新繪製
+    const graph = makeGraph(currentFilteredData, filters.year, filters.origin, filters.asylum);
+    clearCanvas();
+    draw(graph);
+});
 
     // 初始繪製
-    const initialGraph = makeGraph(filteredData, "2013", "all", "all");
+const initialGraph = makeGraph(filteredData, "2013", "all", "all",5000);
     draw(initialGraph);
 });
 
@@ -35,10 +43,15 @@ d3.csv("./data/all_countries.csv").then(function (rawData) {
 function createDropdownOptions(data, field, elementId) {
     const uniqueValues = Array.from(new Set(data.map(d => d[field]))).sort();
     const dropdown = d3.select(`#${elementId}`);
+
     dropdown.append("option").text("All").attr("value", "all");
+    
+
     uniqueValues.forEach(value => {
         dropdown.append("option").text(value).attr("value", value);
     });
+        //dropdown.property("value", "all"); // 預設選中 All
+
 }
 
 // 取得下拉選單值
@@ -46,7 +59,8 @@ function getDropdownValues() {
     return {
         year: d3.select("#year-select").property("value"),
         origin: d3.select("#origin-select").property("value"),
-        asylum: d3.select("#asylum-select").property("value")
+        asylum: d3.select("#asylum-select").property("value"),
+        threshold: d3.select("#threshold-select").property("value") // 新增門檻值
     };
 }
 
@@ -55,15 +69,17 @@ function clearCanvas() {
     d3.select("#chart").selectAll("*").remove();
 }
 
+
 // 建立 Sankey 資料結構
-function makeGraph(data, year, origin, asylum) {
+function makeGraph(data, year, origin, asylum, threshold = 10000) {
     const graph = { nodes: [], links: [] };
 
     // 篩選資料
     const yearFilteredData = data.filter(d =>
         (year === "all" || d.Year === year) &&
         (origin === "all" || d["Country of origin"] === origin) &&
-        (asylum === "all" || d["Country of asylum"] === asylum)
+        (asylum === "all" || d["Country of asylum"] === asylum) &&
+        (+d["Refugees under UNHCR's mandate"] >= threshold) // 應用門檻
     );
 
     const originMap = new Map();
@@ -97,7 +113,7 @@ function makeGraph(data, year, origin, asylum) {
 }
 
 // 繪製 Sankey 圖表
-function draw(graph) {
+function draw(graph, year) {
     const width = 1200;
     const height = Math.max(800, graph.nodes.length * 20);
 
@@ -116,6 +132,34 @@ function draw(graph) {
 
     const color = d3.scaleOrdinal(d3.schemeCategory10).domain(nodes.map(d => d.name));
 
+    const linkWidthMultiplier = year === "all" ? 1.5 : 5;
+
+    const defs = svg.append("defs");
+    // 為每條連線生成漸變
+    links.forEach((d, i) => {
+        const gradientId = `gradient-${i}`;
+        const gradient = defs.append("linearGradient")
+            .attr("id", gradientId)
+            .attr("gradientUnits", "userSpaceOnUse")
+            .attr("x1", d.source.x1)
+            .attr("x2", d.target.x0);
+
+        gradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", color(d.source.name))
+            .attr("stop-opacity", 0.5); // 前端透明度降低
+
+        gradient.append("stop")
+            .attr("offset", "50%")
+            .attr("stop-color", color(d.source.name))
+            .attr("stop-opacity", 1); // 中間不透明
+
+        gradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", color(d.target.name))
+            .attr("stop-opacity", 0.5); // 後端透明度降低
+    });
+
     // 繪製連線
     const tooltip = createTooltip();
     svg.append("g")
@@ -125,7 +169,8 @@ function draw(graph) {
         .attr("class", "link")
         .attr("d", d3.sankeyLinkHorizontal())
         .attr("stroke", d => color(d.source.name))
-        .attr("stroke-width", d => Math.max(1, d.width))
+        .attr("stroke-width", d => Math.max(1, d.width* linkWidthMultiplier))
+        .attr("stroke", (d, i) => `url(#gradient-${i})`) // 使用漸變
         .attr("fill", "none")
         .on("mouseover", (event, d) => tooltip.style("opacity", 1))
         .on("mousemove", (event, d) => {
@@ -145,9 +190,9 @@ function draw(graph) {
 
     nodeGroup.append("rect")
         .attr("x", d => d.x0 + 10)
-        .attr("y", d => d.y0)
+        .attr("y", d => d.y0-5)
         .attr("width", d => d.x1 - d.x0 - 15)
-        .attr("height", d => d.y1 - d.y0)
+        .attr("height", d => d.y1 - d.y0+10)
         .attr("fill", "black");
 
     nodeGroup.append("text")
@@ -155,8 +200,8 @@ function draw(graph) {
         .attr("y", d => (d.y1 + d.y0) / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", d => (d.role === "origin" ? "end" : "start"))
-        .text(d => d.name.length > 30 ? `${d.name.slice(0, 27)}...` : d.name);
-}
+        .text(d => d.name); // 顯示完整名稱
+    }
 
 // 建立 Tooltip
 function createTooltip() {

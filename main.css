@@ -1,0 +1,604 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.link,
+.link:visited {
+  color: var(--text-color);
+  text-decoration: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 0;
+}
+button {
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  color: var(--text-color);
+}
+
+:root {
+  --main-bg-color: #2f303a;
+  --highlight-color: #c2120c;
+  --text-color: #fff;
+  --map-background: #add8e6;
+}
+
+.container {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+@media screen and (min-width: 320px) {
+  .container {
+    max-width: 480px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+/* ================================================================= HEADER ================================================================= */
+
+.header {
+  background-color: var(--main-bg-color);
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #676767;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  gap: 10px;
+  color: var(--text-color);
+}
+@media screen and (min-width: 768px) {
+  .menu {
+    gap: 30px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .menu {
+    gap: 50px;
+  }
+}
+
+.menu__item {
+  color: var(--text-color);
+}
+
+.menu__link {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+  position: relative;
+}
+@media screen and (min-width: 768px) {
+  .menu__link {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .menu__link {
+    font-size: 20px;
+  }
+}
+
+.menu__link:hover,
+.menu__link:focus {
+  color: var(--highlight-color);
+  cursor: pointer;
+}
+.main__link,
+.main__link:visited {
+  color: var(--text-color);
+  text-decoration: none;
+}
+/*================================================================= MAIN SECTION =================================================================  */
+.container__main {
+  height: 100vh;
+  background-color: var(--main-bg-color);
+  background-image: linear-gradient(
+      to right,
+      rgba(47, 48, 58, 0.4),
+      rgba(47, 48, 58, 0.4)
+    ),
+    url(../img/pexel_map.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: var(--text-color);
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 30px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .title {
+    font-size: 36px;
+  }
+}
+
+.data-title {
+  font-size: 18px;
+  color: var(--text-color);
+}
+@media screen and (min-width: 768px) {
+  .data-title {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .data-title {
+    font-size: 24px;
+  }
+}
+/* ================================================================= MAP ================================================================= */
+
+#timelapse {
+  font-size: 24px;
+  font-weight: bold;
+}
+#year {
+  background-color: var(--map-background);
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  #year {
+    font-size: 30px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #year {
+    font-size: 36px;
+  }
+}
+
+.plot-container {
+  background-color: var(--map-background);
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 768px) {
+  #map {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #map {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#menu {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  border-radius: 10px;
+  background-color: #676767;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+@media screen and (min-width: 768px) {
+  #legend {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #legend {
+    display: flex;
+    justify-content: center;
+  }
+}
+.timelapse_box {
+  height: 50px;
+  display: flex;
+  margin-bottom: 30px;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#playButton {
+  padding: 2px 10px 0;
+  color: #000;
+  background-color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#buttonImage {
+  width: 80px;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+@media screen and (min-width: 768px) {
+  #buttonImage {
+    width: 30px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  #buttonImage {
+    width: 30px;
+  }
+}
+
+.start-year,
+.end-year {
+  margin-left: 5px;
+  width: 100px;
+  margin-top: 5px;
+  background-color: rgb(242, 242, 242);
+  height: 25px;
+  line-height: 10px;
+  font-size: 13px;
+  text-align: center;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 5px;
+}
+@media screen and (min-width: 768px) {
+  .start-year,
+  .end-year {
+    margin-left: 8px;
+    font-size: 16px;
+    height: 30px;
+    line-height: 20px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .start-year,
+  .end-year {
+    margin-left: 10px;
+    font-size: 18px;
+    height: 40px;
+    line-height: 30px;
+  }
+}
+
+#dateSlider {
+  margin-left: 10px;
+  width: 600px;
+}
+
+/* =================================================================FOOTER================================================================= */
+footer {
+  background-color: var(--main-bg-color);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  footer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+.container__footer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 16px;
+}
+@media screen and (min-width: 768px) {
+  .footer-text {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .footer-text {
+    font-size: 24px;
+  }
+}
+
+/* ================================================================= BARS ================================================================= */
+
+.total-bars-title {
+  text-align: center;
+  font-size: 24px;
+}
+@media screen and (min-width: 768px) {
+  .total-bars-title {
+    font-size: 36px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .total-bars-title {
+    font-size: 48px;
+  }
+}
+.tick text {
+  font-size: 12px;
+  fill: #635f5d;
+}
+
+.total-bars {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+@media screen and (min-width: 768px) {
+  .total-bars {
+    margin-left: 0;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .total-bars {
+    justify-content: center;
+    display: flex;
+  }
+}
+
+.scroll-container {
+  height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.tick line {
+  stroke: #c0c0bb;
+}
+
+.axis-label {
+  font-size: 5em;
+  fill: #8e8883;
+}
+
+.text-container {
+  padding-top: 200px;
+}
+
+#menus {
+  padding-top: 20px;
+  font-size: 14px;
+  color: #635f5d;
+}
+@media screen and (min-width: 768px) {
+  #menus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #menus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 19px;
+  }
+}
+
+.menu_selection {
+  color: #635f5d;
+}
+.continent_container {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  font-size: 19px;
+  color: #635f5d;
+  align-content: center;
+}
+.continent_container-item,
+.bars-text-container_item {
+  display: flex;
+  font-size: 19px;
+  gap: 4px;
+  color: #635f5d;
+  align-content: center;
+  align-items: center;
+}
+.bars-text-container_item {
+  padding-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+  .years-checkbox {
+    margin-top: 15px;
+    width: 200px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .years-checkbox {
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .years-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+.nav-tabs {
+  padding-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .nav-tabs {
+    padding-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .nav-tabs {
+    padding-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+.nav-link {
+  background-color: #f0f0f0;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  color: #635f5d;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+@media screen and (min-width: 768px) {
+  .nav-link {
+    padding: 5px;
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .nav-link {
+    padding: 8px;
+    font-size: 16px;
+  }
+}
+.active {
+  background-color: #ffd09b;
+}
+
+.stacked-bars-box {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* =================================================================姜欣妤 START DIAGRAM CSS================================================================= */
+/* 美化下拉選單 */
+select {
+  font-size: 14px;
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+#chart {
+  position: relative;
+}
+.plot-container-s {
+  overflow-x: auto;
+  white-space: nowrap; /* 防止內容換行 */
+}
+
+.total-bars-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+section {
+  display: flex;               /* 使用 Flexbox 對齊 */
+  flex-wrap: wrap;             /* 選項可以換行 */
+  justify-content: center;     /* 水平置中 */
+  align-items: center;         /* 垂直置中 */
+  gap: 10px;                   /* 選項之間的間距 */
+  text-align: center;          /* 文字置中 */
+
+}
+
+/* 個別篩選選項 */
+section label {
+  font-size: 16px;             /* 預設字體大小 */
+  font-weight: bold;           /* 字體加粗（可選） */
+  margin-bottom: 5px;          /* 與選單的間距 */
+}
+
+section select,
+section input {
+  font-size: 14px;             /* 預設下拉選單和輸入框字體大小 */
+  padding: 5px 10px;           /* 增加內邊距，提升可讀性 */
+  border: 1px solid #ccc;      /* 邊框樣式 */
+  border-radius: 4px;          /* 圓角 */
+  text-align: center;          /* 內容文字置中 */
+  max-width: 200px;            /* 最大寬度 */
+  min-width: 100px;            /* 最小寬度 */
+}
+
+/* 小螢幕情況 */
+@media screen and (max-width: 768px) {
+  section {
+      flex-direction: column; /* 改為垂直排列 */
+      gap: 5px; /* 縮小選項間距 */
+  }
+
+  section label,
+  section select,
+  section input {
+      flex: none; /* 不要佔用彈性寬度 */
+      width: 80%; /* 每個選項佔滿一行 */
+  }
+}
+
+
+/* =================================================================姜欣妤 END DIAGRAM CSS================================================================= */
