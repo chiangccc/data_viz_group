@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refugees-Statistics</title>
     <link rel="icon" href="./img/refugee.png" type="image/png">
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
         integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg=="
@@ -37,6 +38,14 @@
     <main>
         <div class="container">
             <section>
+                <label for="year-select">Year </label>
+                <select id="year-select"></select>
+            
+                <label for="origin-select">Origin </label>
+                <select id="origin-select"></select>
+            
+                <label for="asylum-select">Asylum</label>
+                <select id="asylum-select"></select>
 
                 <!-- ================================== 姜欣妤 can code here, don't change header and footer==========================================-->
                 <!-- your js file is in script folder digram.js    <script src="./script/diagram.js"></script> -->
