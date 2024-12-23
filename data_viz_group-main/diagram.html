@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugees-Statistics</title>
+    <link rel="icon" href="./img/refugee.png" type="image/png">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+        integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <nav class="navigation">
+                <ul class="menu">
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./index.html"><b>Refugees</b></a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./map.html">Cloropleth Map</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./bars.html">Bar Charts</a>
+                    </li>
+                    <li class="menu__item list">
+                        <a class="menu__link link" href="./diagram.html">Sankey Diagram</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="chart">
+    <main>
+        <div class="plot-container-s">
+
+            <section>
+
+                <label for="year-select">Year </label>
+                <select id="year-select"></select>
+            
+                <label for="origin-select">Origin </label>
+                <select id="origin-select"></select>
+            
+                <label for="asylum-select">Asylum</label>
+                <select id="asylum-select"></select>
+
+                <label for="threshold-select">Threshold (min people): </label>
+                <input type="number" id="threshold-select" min="0" value="5000" step="1000">
+
+                <div id="chart"></div>
+
+                <!-- ================================== 姜欣妤 can code here, don't change header and footer==========================================-->
+                <!-- your js file is in script folder digram.js    <script src="./script/diagram.js"></script> -->
+                <!-- can add css part into css folder -> main.css (姜欣妤 css)-->
+
+            </section>
+        </div>
+    </main>
+    </div>
+    <footer>
+        <div class="container container__footer">
+            <p class="footer-text"><b>Data Visualization and Visual Analytics Final Project</b><br>Students: Anna
+                Kompan, Partho Adhikari, 姜欣妤<br>Professor: 王昱舜 (Wang Yushun)
+            </p>
+        </div>
+    </footer>
+    <script src="./script/diagram.js"></script>
+</body>
+
+</html>
